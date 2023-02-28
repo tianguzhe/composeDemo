@@ -1,6 +1,7 @@
 package com.example.studydemo.ui.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -17,10 +18,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.studydemo.model.NavigationItem
-import com.example.studydemo.ui.theme.StudyDemoTheme
 
 val navigationItems = listOf(
     NavigationItem("学习", Icons.Filled.Home),
@@ -31,7 +31,7 @@ val navigationItems = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainFrame() {
     var currentNavigationIndex by remember { mutableStateOf(0) }
 
     Scaffold(bottomBar = {
@@ -40,7 +40,11 @@ fun MainScreen() {
             onChangeCurrent = { currentNavigationIndex = it },
         )
     }) {
-        Text(text = "currentIndex = $currentNavigationIndex")
+        when (currentNavigationIndex) {
+            0 -> StudyScreen()
+            1 -> TaskScreen()
+            2 -> MineScreen()
+        }
     }
 }
 
@@ -48,6 +52,7 @@ fun MainScreen() {
 fun BottomNav(currentNavigationIndex: Int, onChangeCurrent: (Int) -> Unit) {
     BottomNavigation(
         backgroundColor = MaterialTheme.colorScheme.surface,
+        modifier = Modifier.navigationBarsPadding(),
     ) {
         navigationItems.forEachIndexed { index, navigationItem ->
             BottomNavigationItem(
@@ -64,14 +69,5 @@ fun BottomNav(currentNavigationIndex: Int, onChangeCurrent: (Int) -> Unit) {
                 unselectedContentColor = Color(0xFF999999),
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun a() {
-    StudyDemoTheme {
-        // A surface container using the 'background' color from the theme
-        MainScreen()
     }
 }
