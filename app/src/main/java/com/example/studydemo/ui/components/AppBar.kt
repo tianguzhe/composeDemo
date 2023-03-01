@@ -48,6 +48,6 @@ fun AppBar(content: @Composable () -> Unit) {
 @Composable
 fun AppBarPreview() {
     AppBar {
-        Text("我来组成头部", color = Color.White, fontSize = 30.sp)
+        Text("TopTitle", color = Color.White, fontSize = 30.sp)
     }
 }
