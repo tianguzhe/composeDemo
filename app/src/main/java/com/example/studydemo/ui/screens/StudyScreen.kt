@@ -13,7 +13,6 @@ fun StudyScreen() {
         AppBar {
             Text(text = "学习页", fontSize = 30.sp)
         }
-//        Image(painter = , contentDescription = null)
     }
 }
 
