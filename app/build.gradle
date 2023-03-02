@@ -3,6 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     namespace 'com.example.studydemo'
     compileSdk 33
@@ -20,9 +25,25 @@ android {
         }
     }
 
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
         release {
+            // 启用代码压缩、优化及混淆
             minifyEnabled false
+            // 启用资源压缩
+            shrinkResources false
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

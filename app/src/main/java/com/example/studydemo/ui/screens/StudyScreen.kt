@@ -6,7 +6,6 @@ import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
