@@ -47,8 +47,8 @@ fun MainFrame() {
         )
     }) {
         when (currentNavigationIndex) {
-            0 -> StudyScreen()
-            1 -> TaskScreen()
+            0 -> TaskScreen()
+            1 -> StudyScreen()
             2 -> MineScreen()
         }
     }
