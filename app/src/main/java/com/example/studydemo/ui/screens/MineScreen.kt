@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.studydemo.ui.components.AppBar
+import com.example.studydemo.ui.components.CircleRing
 import com.example.studydemo.ui.screens.viewmodel.MineViewModel
 
 @Composable
@@ -20,5 +21,7 @@ fun MineScreen(vm: MineViewModel = viewModel()) {
             Text("我来组成头部", color = Color.White, fontSize = 20.sp)
         }
         Text(text = "$num", fontSize = 30.sp)
+        CircleRing(100, 30)
+        CircleRing(100, 70)
     }
 }
