@@ -23,6 +23,10 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.studydemo.utils.floorMod
 
+/**
+ * 轮播图指示器
+ *
+ * */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HorizontalPagerIndicator(

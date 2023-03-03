@@ -1,11 +1,13 @@
 package com.example.studydemo.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -54,8 +57,11 @@ fun TaskScreen(vm: TaskViewModel = viewModel()) {
                 horizontal = 8.dp,
             ),
         ) {
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
             itemsIndexed(movieData.items) { lazyIndex, movie ->
-                if (lazyIndex == 0) Spacer(modifier = Modifier.height(16.dp))
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background,
@@ -64,15 +70,38 @@ fun TaskScreen(vm: TaskViewModel = viewModel()) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            AsyncImage(
-                                model = movie.pic.large,
-                                contentDescription = null,
-                                modifier = Modifier.size(
-                                    100.dp,
-                                    160.dp,
-                                ).clip(RoundedCornerShape(6.dp)),
-                                contentScale = ContentScale.Crop,
-                            )
+                            Box {
+                                AsyncImage(
+                                    model = movie.pic.large,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(
+                                        100.dp,
+                                        160.dp,
+                                    ).clip(RoundedCornerShape(6.dp)),
+                                    contentScale = ContentScale.Crop,
+                                )
+                                Box(
+                                    modifier = Modifier.size(24.dp, 26.dp).clip(
+                                        CutCornerShape(
+                                            bottomStart = 12.dp,
+                                            bottomEnd = 12.dp,
+                                        ),
+                                    ).background(Color(0xFFF19116)),
+                                    contentAlignment = Alignment.TopCenter,
+                                ) {
+                                    Text(
+                                        text = (lazyIndex + 1).toString(),
+                                        color = Color.White,
+                                        fontSize = if (lazyIndex + 1 < 10) {
+                                            16.sp
+                                        } else if (lazyIndex + 1 < 100) {
+                                            14.sp
+                                        } else {
+                                            12.sp
+                                        },
+                                    )
+                                }
+                            }
                             Spacer(modifier = Modifier.width(16.dp))
 
                             // Display
@@ -118,6 +147,10 @@ fun TaskScreen(vm: TaskViewModel = viewModel()) {
                     }
                 }
             }
+
+            item {
+                Spacer(modifier = Modifier.height(65.dp))
+            }
         }
     }
 }
@@ -142,6 +175,9 @@ fun MovieCardDetail(movie: MovieItem) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = movie.description, fontSize = 16.sp)
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(
+            modifier = Modifier.padding(vertical = 15.dp).height(2.dp).fillMaxWidth()
+                .background(Color(0xFFEEEEEE)),
+        )
     }
 }

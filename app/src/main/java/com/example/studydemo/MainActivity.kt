@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import com.example.studydemo.ui.screens.MainFrame
+import com.example.studydemo.ui.MainFrame
 import com.example.studydemo.ui.theme.StudyDemoTheme
 
 class MainActivity : ComponentActivity() {

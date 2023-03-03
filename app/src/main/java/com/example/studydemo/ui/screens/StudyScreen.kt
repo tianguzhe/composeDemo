@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.studydemo.ui.components.AppBar
+import com.example.studydemo.ui.components.ConstraintItem
 import com.example.studydemo.ui.screens.viewmodel.StudyViewModel
 
 @Composable
@@ -29,6 +30,7 @@ fun StudyScreen(vm: StudyViewModel = viewModel()) {
         RowItem(categories, categoryIndex) { index ->
             vm.updateCategoryIndex(index)
         }
+        ConstraintItem(modifier = Modifier.padding(top = 8.dp))
     }
 }
 

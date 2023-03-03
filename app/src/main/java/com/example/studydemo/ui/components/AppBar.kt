@@ -20,6 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * 通用appbar
+ *
+ * */
 @Composable
 fun AppBar(content: @Composable () -> Unit) {
     val barHeight = 56.dp

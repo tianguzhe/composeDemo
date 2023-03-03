@@ -8,6 +8,7 @@ data class MovieData(
     @SerializedName("subject_collection_items") val items: List<MovieItem>,
 )
 
+@Keep
 data class MovieItem(
     val rating: Rating,
     val pic: Pic,
@@ -19,10 +20,12 @@ data class MovieItem(
     val photos: List<String>,
 )
 
+@Keep
 data class Rating(
     val value: Float,
 )
 
+@Keep
 data class Pic(
     val large: String,
     val normal: String,

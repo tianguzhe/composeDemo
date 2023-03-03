@@ -1,4 +1,4 @@
-package com.example.studydemo.ui.screens
+package com.example.studydemo.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -21,6 +21,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.studydemo.model.NavigationItem
+import com.example.studydemo.ui.screens.MineScreen
+import com.example.studydemo.ui.screens.StudyScreen
+import com.example.studydemo.ui.screens.TaskScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 val navigationItems = listOf(
@@ -47,8 +50,8 @@ fun MainFrame() {
         )
     }) {
         when (currentNavigationIndex) {
-            0 -> TaskScreen()
-            1 -> StudyScreen()
+            0 -> StudyScreen()
+            1 -> TaskScreen()
             2 -> MineScreen()
         }
     }
