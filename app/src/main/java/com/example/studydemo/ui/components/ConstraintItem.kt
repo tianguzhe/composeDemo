@@ -48,7 +48,7 @@ fun ConstraintItem(modifier: Modifier = Modifier, debugger: Boolean = false) {
             bottom.linkTo(cover.bottom)
         }
         constrain(time) {
-            start.linkTo(type.end, margin = 8.dp)
+            end.linkTo(title.end, margin = 8.dp)
             top.linkTo(type.top)
         }
     }
@@ -69,7 +69,7 @@ fun ConstraintItem(modifier: Modifier = Modifier, debugger: Boolean = false) {
         )
 
         Text(
-            "行测老师教你如何制定学习方案,行测老师教你如何制定学习方案",
+            "行测老师教你如何制定学习方案测老师教你如,行测老师教你如何制定学习方案",
             color = Color(0xFF666666),
             fontSize = 16.sp,
             maxLines = 2,
@@ -80,7 +80,7 @@ fun ConstraintItem(modifier: Modifier = Modifier, debugger: Boolean = false) {
         Text(
             "视频课程",
             color = Color(0xFF999999),
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.layoutId("type"),
@@ -89,7 +89,7 @@ fun ConstraintItem(modifier: Modifier = Modifier, debugger: Boolean = false) {
         Text(
             "时长: 20:02:05",
             color = Color(0xFF999999),
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.layoutId("time"),

@@ -143,20 +143,16 @@ fun TaskScreen(vm: TaskViewModel = viewModel()) {
                                 )
                             }
                         }
-                        MovieCardDetail(movie)
+                        MovieCardDetail(movie, lazyIndex == movieData.items.size - 1)
                     }
                 }
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(65.dp))
             }
         }
     }
 }
 
 @Composable
-fun MovieCardDetail(movie: MovieItem) {
+fun MovieCardDetail(movie: MovieItem, isLastItem: Boolean) {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = movie.title, fontSize = 18.sp)
@@ -175,9 +171,10 @@ fun MovieCardDetail(movie: MovieItem) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = movie.description, fontSize = 16.sp)
-        Spacer(
+
+        Box(
             modifier = Modifier.padding(vertical = 15.dp).height(2.dp).fillMaxWidth()
-                .background(Color(0xFFEEEEEE)),
+                .background(if (isLastItem) Color.Transparent else Color(0xFFEEEEEE)),
         )
     }
 }

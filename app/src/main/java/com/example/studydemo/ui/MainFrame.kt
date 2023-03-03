@@ -1,7 +1,8 @@
 package com.example.studydemo.ui
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -32,7 +33,6 @@ val navigationItems = listOf(
     NavigationItem("我的", Icons.Filled.Person),
 )
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainFrame() {
     var currentNavigationIndex by remember { mutableStateOf(0) }
@@ -49,10 +49,12 @@ fun MainFrame() {
             onChangeCurrent = { currentNavigationIndex = it },
         )
     }) {
-        when (currentNavigationIndex) {
-            0 -> StudyScreen()
-            1 -> TaskScreen()
-            2 -> MineScreen()
+        Box(modifier = Modifier.padding(it)) {
+            when (currentNavigationIndex) {
+                0 -> StudyScreen()
+                1 -> TaskScreen()
+                2 -> MineScreen()
+            }
         }
     }
 }
