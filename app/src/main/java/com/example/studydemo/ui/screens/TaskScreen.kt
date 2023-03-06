@@ -19,6 +19,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -41,9 +42,9 @@ import com.example.studydemo.ui.components.HorizontalPagerIndicator
 import com.example.studydemo.ui.screens.viewmodel.TaskViewModel
 import com.example.studydemo.utils.floorMod
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun TaskScreen(vm: TaskViewModel = viewModel()) {
+fun TaskScreen(onNavigateToWebView: () -> Unit, vm: TaskViewModel = viewModel()) {
     val movieData by vm.movieData.collectAsStateWithLifecycle()
 
     Column {
@@ -60,11 +61,14 @@ fun TaskScreen(vm: TaskViewModel = viewModel()) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
-            itemsIndexed(movieData.items) { lazyIndex, movie ->
+            itemsIndexed(movieData.items, key = { _, movie ->
+                movie.id
+            }) { lazyIndex, movie ->
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background,
+                    onClick = onNavigateToWebView,
                 ) {
                     Column {
                         Row(

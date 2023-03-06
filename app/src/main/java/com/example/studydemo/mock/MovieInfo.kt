@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 data class MovieData(
-    @SerializedName("subject_collection_items") val items: List<MovieItem>,
+    @SerializedName("subject_collection_items")
+    val items: List<MovieItem>,
 )
 
 @Keep
@@ -13,7 +14,8 @@ data class MovieItem(
     val rating: Rating,
     val pic: Pic,
     val uri: String,
-    @SerializedName("card_subtitle") val cardSubtitle: String,
+    @SerializedName("card_subtitle")
+    val cardSubtitle: String,
     val id: String,
     val title: String,
     val description: String,
