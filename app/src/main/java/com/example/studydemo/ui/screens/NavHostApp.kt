@@ -13,6 +13,7 @@ import com.example.studydemo.ui.navigation.Destinations
 @Composable
 fun NavHostApp(
     modifier: Modifier = Modifier,
+    onChangeBottomNavState: (Boolean) -> Unit = {},
     navController: NavHostController = rememberNavController(),
     startDestination: String = Destinations.StudyScreen.route,
 ) {
@@ -22,16 +23,19 @@ fun NavHostApp(
         modifier = modifier,
     ) {
         composable(Destinations.StudyScreen.route) {
+            onChangeBottomNavState(true)
             StudyScreen()
         }
 
         composable(Destinations.TaskScreen.route) {
+            onChangeBottomNavState(true)
             TaskScreen(onNavigateToWebView = { route ->
                 navController.navigate(route)
             })
         }
 
         composable(Destinations.MineScreen.route) {
+            onChangeBottomNavState(true)
             MineScreen()
         }
 
@@ -39,6 +43,7 @@ fun NavHostApp(
             Destinations.WebViewScreen.route,
             arguments = listOf(navArgument("url") { type = NavType.StringType }),
         ) { backStackEntry ->
+            onChangeBottomNavState(false)
             WebViewScreen(backStackEntry.arguments?.getString("url") ?: "Web页面")
         }
     }

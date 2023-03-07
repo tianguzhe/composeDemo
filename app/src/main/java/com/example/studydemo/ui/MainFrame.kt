@@ -15,6 +15,9 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -36,6 +39,9 @@ val navigationItems = listOf(
 @Composable
 fun MainFrame() {
     val navController = rememberNavController()
+    var showBottomBar by remember {
+        mutableStateOf(true)
+    }
 
     // 沉浸状态栏
     val systemUiController = rememberSystemUiController()
@@ -45,9 +51,17 @@ fun MainFrame() {
     }
 
     Scaffold(bottomBar = {
-        BottomNav(navController = navController)
+        if (showBottomBar) {
+            BottomNav(navController = navController)
+        }
     }) { innerPadding ->
-        NavHostApp(modifier = Modifier.padding(innerPadding), navController = navController)
+        NavHostApp(
+            modifier = Modifier.padding(innerPadding),
+            onChangeBottomNavState = { bottomNavState ->
+                showBottomBar = bottomNavState
+            },
+            navController = navController,
+        )
     }
 }
 
