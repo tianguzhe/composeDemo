@@ -3,9 +3,11 @@ package com.example.studydemo.ui.screens
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.studydemo.ui.navigation.Destinations
 
 @Composable
@@ -24,8 +26,8 @@ fun NavHostApp(
         }
 
         composable(Destinations.TaskScreen.route) {
-            TaskScreen(onNavigateToWebView = {
-                navController.navigate(Destinations.WebViewScreen.route)
+            TaskScreen(onNavigateToWebView = { route ->
+                navController.navigate(route)
             })
         }
 
@@ -35,8 +37,9 @@ fun NavHostApp(
 
         composable(
             Destinations.WebViewScreen.route,
-        ) {
-            WebViewScreen()
+            arguments = listOf(navArgument("url") { type = NavType.StringType }),
+        ) { backStackEntry ->
+            WebViewScreen(backStackEntry.arguments?.getString("url") ?: "Web页面")
         }
     }
 }

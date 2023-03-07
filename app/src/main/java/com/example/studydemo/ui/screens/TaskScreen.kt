@@ -39,12 +39,13 @@ import coil.compose.AsyncImage
 import com.example.studydemo.mock.MovieItem
 import com.example.studydemo.ui.components.AppBar
 import com.example.studydemo.ui.components.HorizontalPagerIndicator
+import com.example.studydemo.ui.navigation.Destinations
 import com.example.studydemo.ui.screens.viewmodel.TaskViewModel
 import com.example.studydemo.utils.floorMod
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun TaskScreen(onNavigateToWebView: () -> Unit, vm: TaskViewModel = viewModel()) {
+fun TaskScreen(onNavigateToWebView: (String) -> Unit, vm: TaskViewModel = viewModel()) {
     val movieData by vm.movieData.collectAsStateWithLifecycle()
 
     Column {
@@ -68,7 +69,9 @@ fun TaskScreen(onNavigateToWebView: () -> Unit, vm: TaskViewModel = viewModel())
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background,
-                    onClick = onNavigateToWebView,
+                    onClick = {
+                        onNavigateToWebView(Destinations.WebViewScreen.injectUrl(movie.id))
+                    },
                 ) {
                     Column {
                         Row(
