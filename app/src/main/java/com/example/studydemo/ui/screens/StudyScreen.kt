@@ -25,7 +25,7 @@ fun StudyScreen(vm: StudyViewModel = viewModel()) {
 
     Column {
         AppBar {
-            Text(text = "学习页", fontSize = 30.sp)
+            Text(text = "学习页", color = Color.White, fontSize = 20.sp)
         }
         RowItem(categories, categoryIndex) { index ->
             vm.updateCategoryIndex(index)
