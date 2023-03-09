@@ -45,7 +45,7 @@ fun NavHostApp(
         ) { backStackEntry ->
             onChangeBottomNavState(false)
             WebViewScreen(
-                url = backStackEntry.arguments?.getString("url") ?: "Web页面",
+                urlId = backStackEntry.arguments?.getString("url") ?: "Web页面",
             )
         }
     }

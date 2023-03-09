@@ -19,19 +19,23 @@ import com.example.studydemo.ui.theme.StudyDemoTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            StudyDemoTheme {
-                CompositionLocalProvider(LocalUserDetail provides LocalUserViewModel()) {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colors.background,
-                    ) {
-                        MainFrame()
-                    }
-                }
+            MainApp()
+        }
+    }
+}
+
+@Composable
+fun MainApp() {
+    StudyDemoTheme {
+        CompositionLocalProvider(LocalUserDetail provides LocalUserViewModel()) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colors.background,
+            ) {
+                MainFrame()
             }
         }
     }
@@ -40,13 +44,5 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    StudyDemoTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background,
-        ) {
-            MainFrame()
-        }
-    }
+    MainApp()
 }

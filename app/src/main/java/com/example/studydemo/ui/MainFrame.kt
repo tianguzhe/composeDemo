@@ -39,9 +39,7 @@ val navigationItems = listOf(
 @Composable
 fun MainFrame() {
     val navController = rememberNavController()
-    var showBottomBar by remember {
-        mutableStateOf(true)
-    }
+    var showBottomBar by remember { mutableStateOf(true) }
 
     // 沉浸状态栏
     val systemUiController = rememberSystemUiController()

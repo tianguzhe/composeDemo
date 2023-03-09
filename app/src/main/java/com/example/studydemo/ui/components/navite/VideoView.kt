@@ -15,4 +15,3 @@ fun VideoView(mVodPlayer: TXVodPlayer) {
         },
     )
 }
-

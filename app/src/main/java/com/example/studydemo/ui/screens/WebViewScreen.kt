@@ -27,18 +27,18 @@ import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 
 @Composable
-fun WebViewScreen(url: String) {
+fun WebViewScreen(urlId: String) {
     Column {
         AppBar {
-            Text(url, color = Color.White, fontSize = 20.sp)
+            Text(urlId, color = Color.White, fontSize = 20.sp)
         }
 
         val vodPlayerController = rememberVodController()
 
         DisposableEffect(key1 = vodPlayerController) {
-            val url = "http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4"
+            val videoUrl = "http://vfx.mtime.cn/Video/2019/03/13/mp4/190313094901111138.mp4"
             vodPlayerController.setStartTime(55F)
-            vodPlayerController.startPlay(url)
+            vodPlayerController.startPlay(videoUrl)
 
             onDispose {
                 vodPlayerController.stopPlay()
@@ -49,7 +49,7 @@ fun WebViewScreen(url: String) {
             VideoPlay(vodController = vodPlayerController)
         }
 
-        val state = rememberWebViewState(url = "https://movie.douban.com/subject/$url/")
+        val state = rememberWebViewState(url = "https://movie.douban.com/subject/$urlId/")
         val navigator = rememberWebViewNavigator()
         val loadingState = state.loadingState
         if (loadingState is LoadingState.Loading) {
