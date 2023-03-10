@@ -2,6 +2,7 @@ package com.example.studydemo
 
 import android.app.Application
 import android.util.Log
+import com.example.studydemo.network.RetrofitFactory
 import com.tencent.rtmp.TXLiveBase
 import com.tencent.rtmp.TXLiveBaseListener
 
@@ -19,5 +20,9 @@ class MyApp : Application() {
                 Log.i("TAG", "onLicenceLoaded: result:$result, reason:$reason")
             }
         })
+
+        RetrofitFactory.instance.setup(
+            "https://m.douban.com/rexxar/api/v2/",
+        )
     }
 }

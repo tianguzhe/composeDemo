@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -24,6 +23,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,7 +62,7 @@ fun TaskScreen(onNavigateToWebView: (String) -> Unit, vm: TaskViewModel = viewMo
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
-            itemsIndexed(movieData.items, key = { _, movie ->
+            itemsIndexed(movieData, key = { _, movie ->
                 movie.id
             }) { lazyIndex, movie ->
 
@@ -150,7 +150,15 @@ fun TaskScreen(onNavigateToWebView: (String) -> Unit, vm: TaskViewModel = viewMo
                                 )
                             }
                         }
-                        MovieCardDetail(movie, lazyIndex == movieData.items.size - 1)
+                        MovieCardDetail(movie, lazyIndex == movieData.size - 1)
+                    }
+                }
+            }
+            // 加载更多
+            if (movieData.isNotEmpty()) {
+                item {
+                    LaunchedEffect(Unit) {
+                        vm.loadMore()
                     }
                 }
             }
