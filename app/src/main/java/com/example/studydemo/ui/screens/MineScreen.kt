@@ -1,5 +1,6 @@
 package com.example.studydemo.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +26,11 @@ fun MineScreen(vm: MineViewModel = viewModel()) {
             Text("我来组成头部", color = Color.White, fontSize = 20.sp)
         }
 
-        BoxWithConstraints(modifier = Modifier.fillMaxSize().weight(1f)) {
+        BoxWithConstraints(
+            modifier = Modifier.fillMaxSize().weight(1f).clickable {
+                localUserViewModel.save("112233")
+            },
+        ) {
             Text(text = constraints.maxHeight.toString())
             Text(text = "\n" + maxHeight.toString())
             Text(text = "\n" + "\n" + constraints.maxWidth.toString())

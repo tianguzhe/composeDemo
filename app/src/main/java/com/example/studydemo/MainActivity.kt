@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.example.studydemo.local.LocalUserDetail
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainApp() {
     StudyDemoTheme {
-        CompositionLocalProvider(LocalUserDetail provides LocalUserViewModel()) {
+        CompositionLocalProvider(LocalUserDetail provides LocalUserViewModel(LocalContext.current)) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colors.background,
