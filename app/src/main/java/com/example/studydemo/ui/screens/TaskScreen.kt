@@ -153,15 +153,21 @@ fun TaskScreen(onNavigateToWebView: (String) -> Unit, vm: TaskViewModel = viewMo
                         MovieCardDetail(movie, lazyIndex == movieData.size - 1)
                     }
                 }
-            }
-            // 加载更多
-            if (movieData.isNotEmpty()) {
-                item {
-                    LaunchedEffect(Unit) {
+
+                LaunchedEffect(movieData.size) {
+                    if (movieData.size - lazyIndex == 5) {
                         vm.loadMore()
                     }
                 }
             }
+            // 加载更多
+//            if (movieData.isNotEmpty()) {
+//                item {
+//                    LaunchedEffect(Unit) {
+//                        vm.loadMore()
+//                    }
+//                }
+//            }
         }
     }
 }

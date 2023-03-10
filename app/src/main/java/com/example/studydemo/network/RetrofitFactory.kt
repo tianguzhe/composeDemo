@@ -4,7 +4,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 class RetrofitFactory private constructor() {
@@ -29,7 +29,7 @@ class RetrofitFactory private constructor() {
         networkInterceptor: Array<Interceptor> = emptyArray(),
     ) {
         retrofit =
-            Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
+            Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(MoshiConverterFactory.create())
                 .client(initClient(applicationInterceptor, networkInterceptor)).build()
     }
 
@@ -45,8 +45,7 @@ class RetrofitFactory private constructor() {
             networkInterceptor.forEach {
                 addNetworkInterceptor(it)
             }
-        }.connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS).build()
+        }.connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).build()
     }
 
     fun <T> createService(service: Class<T>): T {
