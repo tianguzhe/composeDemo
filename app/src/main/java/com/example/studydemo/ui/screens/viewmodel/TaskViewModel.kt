@@ -36,7 +36,9 @@ class TaskViewModel(
     private fun injectRoomData() {
         viewModelScope.launch {
             val items = taskViewModelRepository.getMovieForStart(page)
-            movieDao.insertMovie(items)
+            if (items.isNotEmpty()) {
+                movieDao.insertMovie(items)
+            }
         }
     }
 }

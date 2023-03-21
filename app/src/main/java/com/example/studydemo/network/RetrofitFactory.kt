@@ -1,5 +1,6 @@
 package com.example.studydemo.network
 
+import com.example.studydemo.single.isDebugEnv
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +20,11 @@ class RetrofitFactory private constructor() {
 
     private val logger by lazy(LazyThreadSafetyMode.NONE) {
         HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (isDebugEnv) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
     }
 
