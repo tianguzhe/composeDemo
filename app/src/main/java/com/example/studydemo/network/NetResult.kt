@@ -26,6 +26,12 @@ inline fun <reified T> RequestState<T>.doError(failure: (Throwable?) -> Unit) {
     }
 }
 
+inline fun <reified T> RequestState<T>.doLoading(loading: () -> Unit) {
+    if (this is RequestState.Loading) {
+        loading()
+    }
+}
+
 class ResultBuilder<T> {
     var onLoading: () -> Unit = {}
     var onSuccess: (data: T) -> Unit = { }

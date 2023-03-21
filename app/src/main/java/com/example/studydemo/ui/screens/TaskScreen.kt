@@ -37,6 +37,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.studydemo.mock.MovieItem
+import com.example.studydemo.network.doError
+import com.example.studydemo.network.doLoading
+import com.example.studydemo.network.doSuccess
 import com.example.studydemo.ui.components.AppBar
 import com.example.studydemo.ui.components.HorizontalPagerIndicator
 import com.example.studydemo.ui.navigation.Destinations
@@ -46,121 +49,122 @@ import com.example.studydemo.utils.floorMod
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun TaskScreen(onNavigateToWebView: (String) -> Unit, vm: TaskViewModel = viewModel()) {
-    val movieData by vm.movieData.collectAsStateWithLifecycle()
+    val movieDataState by vm.movieData.collectAsStateWithLifecycle()
 
-    Column {
-        AppBar {
-            Text("Top250", color = Color.White, fontSize = 20.sp)
-        }
-
-        LazyColumn(
-            horizontalAlignment = Alignment.Start,
-            modifier = Modifier.padding(
-                horizontal = 8.dp,
-            ),
-        ) {
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
+    movieDataState.doSuccess { movieData ->
+        Column {
+            AppBar {
+                Text("Top250", color = Color.White, fontSize = 20.sp)
             }
-            itemsIndexed(movieData, key = { _, movie ->
-                movie.id
-            }) { lazyIndex, movie ->
 
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background,
-                    onClick = {
-                        onNavigateToWebView(Destinations.WebViewScreen.injectUrl(movie.id))
-                    },
-                ) {
-                    Column {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Box {
-                                AsyncImage(
-                                    model = movie.pic.large,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(
-                                        100.dp,
-                                        160.dp,
-                                    ).clip(RoundedCornerShape(6.dp)),
-                                    contentScale = ContentScale.Crop,
-                                )
-                                Box(
-                                    modifier = Modifier.size(24.dp, 26.dp).clip(
-                                        CutCornerShape(
-                                            bottomStart = 12.dp,
-                                            bottomEnd = 12.dp,
-                                        ),
-                                    ).background(Color(0xFFF19116)),
-                                    contentAlignment = Alignment.TopCenter,
-                                ) {
-                                    Text(
-                                        text = (lazyIndex + 1).toString(),
-                                        color = Color.White,
-                                        fontSize = if (lazyIndex + 1 < 10) {
-                                            16.sp
-                                        } else if (lazyIndex + 1 < 100) {
-                                            14.sp
-                                        } else {
-                                            12.sp
-                                        },
-                                    )
-                                }
-                            }
-                            Spacer(modifier = Modifier.width(16.dp))
+            LazyColumn(
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier.padding(
+                    horizontal = 8.dp,
+                ),
+            ) {
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+                itemsIndexed(movieData, key = { _, movie ->
+                    movie.id
+                }) { lazyIndex, movie ->
 
-                            // Display
-                            val pageCount = movie.photos.size
-
-                            // We start the pager in the middle of the raw number of pages
-                            val startIndex = Int.MAX_VALUE / 2
-                            val pagerState = rememberPagerState(initialPage = startIndex)
-
-                            Box {
-                                HorizontalPager(
-                                    pageCount = Int.MAX_VALUE,
-                                    state = pagerState,
-                                ) { index ->
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colors.background,
+                        onClick = {
+                            onNavigateToWebView(Destinations.WebViewScreen.injectUrl(movie.id))
+                        },
+                    ) {
+                        Column {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Box {
                                     AsyncImage(
-                                        model = movie.photos[
-                                            (index - startIndex).floorMod(
-                                                pageCount,
-                                            ),
-                                        ],
+                                        model = movie.pic.large,
                                         contentDescription = null,
                                         modifier = Modifier.size(
-                                            300.dp,
+                                            100.dp,
                                             160.dp,
                                         ).clip(RoundedCornerShape(6.dp)),
                                         contentScale = ContentScale.Crop,
                                     )
+                                    Box(
+                                        modifier = Modifier.size(24.dp, 26.dp).clip(
+                                            CutCornerShape(
+                                                bottomStart = 12.dp,
+                                                bottomEnd = 12.dp,
+                                            ),
+                                        ).background(Color(0xFFF19116)),
+                                        contentAlignment = Alignment.TopCenter,
+                                    ) {
+                                        Text(
+                                            text = (lazyIndex + 1).toString(),
+                                            color = Color.White,
+                                            fontSize = if (lazyIndex + 1 < 10) {
+                                                16.sp
+                                            } else if (lazyIndex + 1 < 100) {
+                                                14.sp
+                                            } else {
+                                                12.sp
+                                            },
+                                        )
+                                    }
                                 }
+                                Spacer(modifier = Modifier.width(16.dp))
 
-                                HorizontalPagerIndicator(
-                                    pagerState = pagerState,
-                                    count = 4,
-                                    indicatorWidth = 6.dp,
-                                    activeColor = Color.White,
-                                    inactiveColor = Color.Gray,
-                                    modifier = Modifier.align(
-                                        Alignment.BottomCenter,
-                                    ).padding(bottom = 8.dp),
-                                )
+                                // Display
+                                val pageCount = movie.photos.size
+
+                                // We start the pager in the middle of the raw number of pages
+                                val startIndex = Int.MAX_VALUE / 2
+                                val pagerState = rememberPagerState(initialPage = startIndex)
+
+                                Box {
+                                    HorizontalPager(
+                                        pageCount = Int.MAX_VALUE,
+                                        state = pagerState,
+                                    ) { index ->
+                                        AsyncImage(
+                                            model = movie.photos[
+                                                (index - startIndex).floorMod(
+                                                    pageCount,
+                                                ),
+                                            ],
+                                            contentDescription = null,
+                                            modifier = Modifier.size(
+                                                300.dp,
+                                                160.dp,
+                                            ).clip(RoundedCornerShape(6.dp)),
+                                            contentScale = ContentScale.Crop,
+                                        )
+                                    }
+
+                                    HorizontalPagerIndicator(
+                                        pagerState = pagerState,
+                                        count = 4,
+                                        indicatorWidth = 6.dp,
+                                        activeColor = Color.White,
+                                        inactiveColor = Color.Gray,
+                                        modifier = Modifier.align(
+                                            Alignment.BottomCenter,
+                                        ).padding(bottom = 8.dp),
+                                    )
+                                }
                             }
+                            MovieCardDetail(movie, lazyIndex == movieData.size - 1)
                         }
-                        MovieCardDetail(movie, lazyIndex == movieData.size - 1)
                     }
-                }
 
-                LaunchedEffect(movieData.size) {
-                    if (movieData.size - lazyIndex == 5) {
-                        vm.loadMore()
+                    LaunchedEffect(movieData.size) {
+                        if (movieData.size - lazyIndex == 5) {
+                            vm.loadMore()
+                        }
                     }
                 }
-            }
-            // 加载更多
+                // 加载更多
 //            if (movieData.isNotEmpty()) {
 //                item {
 //                    LaunchedEffect(Unit) {
@@ -168,6 +172,25 @@ fun TaskScreen(onNavigateToWebView: (String) -> Unit, vm: TaskViewModel = viewMo
 //                    }
 //                }
 //            }
+            }
+        }
+    }
+
+    movieDataState.doError {
+        Box(
+            modifier = Modifier.fillMaxSize().padding(50.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(text = "${it?.localizedMessage}")
+        }
+    }
+
+    movieDataState.doLoading {
+        Box(
+            modifier = Modifier.fillMaxSize().padding(50.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(text = "加载中")
         }
     }
 }
