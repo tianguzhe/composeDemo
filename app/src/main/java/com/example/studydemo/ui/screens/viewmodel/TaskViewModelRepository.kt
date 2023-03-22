@@ -1,10 +1,10 @@
 package com.example.studydemo.ui.screens.viewmodel
 
+import android.util.Log
 import com.example.studydemo.mock.MovieItem
 import com.example.studydemo.network.RequestState
 import com.example.studydemo.network.RetrofitFactory
 import com.example.studydemo.services.MovieService
-import com.orhanobut.logger.Logger
 
 class TaskViewModelRepository {
 
@@ -29,7 +29,7 @@ suspend fun <T> transformApi(block: suspend () -> List<T>): RequestState<List<T>
             RequestState.Error(Throwable("接口错误"))
         }
     } catch (e: Exception) {
-        Logger.e("${e.message}")
+        Log.e("TaskViewModelRepository", "${e.message}")
         RequestState.Error(e)
     }
 }

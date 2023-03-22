@@ -4,8 +4,6 @@ import android.app.Application
 import android.util.Log
 import com.example.studydemo.network.RetrofitFactory
 import com.example.studydemo.utils.notNullSingle
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
 import com.tencent.rtmp.TXLiveBase
 import com.tencent.rtmp.TXLiveBaseListener
 import kotlin.properties.Delegates
@@ -24,13 +22,8 @@ class MyApp : Application() {
     }
 
     private fun initThird() {
-        initLogger()
         initPlay()
         initNetwork()
-    }
-
-    private fun initLogger() {
-        Logger.addLogAdapter(AndroidLogAdapter())
     }
 
     private fun initNetwork() {

@@ -28,8 +28,7 @@ abstract class MovieItemDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): MovieItemDatabase {
-            return Room.databaseBuilder(context, MovieItemDatabase::class.java, "database_name")
-                .build()
+            return Room.databaseBuilder(context, MovieItemDatabase::class.java, "movie_db").build()
         }
     }
 }
