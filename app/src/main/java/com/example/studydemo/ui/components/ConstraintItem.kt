@@ -28,30 +28,7 @@ import com.example.studydemo.R
  * */
 @Composable
 fun ConstraintItem(modifier: Modifier = Modifier, debugger: Boolean = false) {
-    val constraints = ConstraintSet {
-        val cover = createRefFor("cover")
-        val title = createRefFor("title")
-        val type = createRefFor("type")
-        val time = createRefFor("time")
-
-        constrain(cover) {
-            width = Dimension.value(150.dp)
-            start.linkTo(parent.start, margin = 8.dp)
-        }
-        constrain(title) {
-            width = Dimension.fillToConstraints
-            start.linkTo(cover.end, margin = 8.dp)
-            end.linkTo(parent.end, margin = 8.dp)
-        }
-        constrain(type) {
-            start.linkTo(title.start)
-            bottom.linkTo(cover.bottom)
-        }
-        constrain(time) {
-            end.linkTo(title.end, margin = 8.dp)
-            top.linkTo(type.top)
-        }
-    }
+    val constraints = decoupledConstraints()
 
     ConstraintLayout(constraints, modifier = Modifier.fillMaxWidth().then(modifier)) {
         Image(
@@ -94,6 +71,33 @@ fun ConstraintItem(modifier: Modifier = Modifier, debugger: Boolean = false) {
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.layoutId("time"),
         )
+    }
+}
+
+private fun decoupledConstraints(): ConstraintSet {
+    return ConstraintSet {
+        val cover = createRefFor("cover")
+        val title = createRefFor("title")
+        val type = createRefFor("type")
+        val time = createRefFor("time")
+
+        constrain(cover) {
+            width = Dimension.value(150.dp)
+            start.linkTo(parent.start, margin = 8.dp)
+        }
+        constrain(title) {
+            width = Dimension.fillToConstraints
+            start.linkTo(cover.end, margin = 8.dp)
+            end.linkTo(parent.end, margin = 8.dp)
+        }
+        constrain(type) {
+            start.linkTo(title.start)
+            bottom.linkTo(cover.bottom)
+        }
+        constrain(time) {
+            end.linkTo(title.end, margin = 8.dp)
+            top.linkTo(type.top)
+        }
     }
 }
 

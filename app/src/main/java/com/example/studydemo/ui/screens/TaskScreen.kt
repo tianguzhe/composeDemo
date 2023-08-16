@@ -2,6 +2,7 @@ package com.example.studydemo.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -57,25 +58,16 @@ fun TaskScreen(onNavigateToWebView: (String) -> Unit, vm: TaskViewModel = viewMo
                 Text("Top250", color = Color.White, fontSize = 20.sp)
             }
 
-            LazyColumn(
-                horizontalAlignment = Alignment.Start,
-                modifier = Modifier.padding(
-                    horizontal = 8.dp,
-                ),
-            ) {
-                item {
-                    Spacer(modifier = Modifier.height(16.dp))
-                }
+            LazyColumn {
                 itemsIndexed(movieData, key = { _, movie ->
                     movie.id
                 }) { lazyIndex, movie ->
 
                     Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colors.background,
-                        onClick = {
+                        modifier = Modifier.clickable {
                             onNavigateToWebView(Destinations.WebViewScreen.injectUrl(movie.id))
-                        },
+                        }.padding(top = 15.dp, start = 8.dp, end = 8.dp).fillMaxSize(),
+                        color = MaterialTheme.colors.background,
                     ) {
                         Column {
                             Row(
@@ -217,7 +209,7 @@ fun MovieCardDetail(movie: MovieItem, isLastItem: Boolean) {
         Text(text = movie.description, fontSize = 16.sp)
 
         Box(
-            modifier = Modifier.padding(vertical = 15.dp).height(2.dp).fillMaxWidth()
+            modifier = Modifier.padding(top = 15.dp).height(2.dp).fillMaxWidth()
                 .background(if (isLastItem) Color.Transparent else Color(0xFFEEEEEE)),
         )
     }

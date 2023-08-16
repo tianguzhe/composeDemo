@@ -52,5 +52,5 @@ fun CircleRingPreviewTo30() {
 @Preview
 @Composable
 fun CircleRingPreviewTo70() {
-    CircleRing(100, 70)
+    CircleRing(100, 70, modifier = Modifier.size(100.dp).padding(8.dp))
 }
